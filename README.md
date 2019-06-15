@@ -1,3 +1,12 @@
+Rozbudowany szkielet React/Redux/TypeScript pod 3dbody
+
+typowane akcje, reducery
+przełączanie widoków w Reduxie
+custom Redux middleware dla CRUD w PouchDb
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
