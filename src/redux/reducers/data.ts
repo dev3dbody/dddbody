@@ -16,7 +16,8 @@ export interface IData {
 }
 
 interface IPatient {
-  id: string;
+  _id: string;
+  _rev: string;
   name: string;
   surname: string;
   birthDate: string;
@@ -24,20 +25,28 @@ interface IPatient {
 }
 
 interface IAppointment {
-  id: string;
+  _id: string;
+  _rev: string;
   visitDate: string;
   interview: string;
   patientId: string;
 }
 
 interface IScan {
-  id: string;
+  _id: string;
+  _rev: string;
   order: number;
   mesh: string;
   appointmentId: string;
 }
 
 export type IResource = IPatient | IAppointment | IScan;
+
+type INewPatient = Omit<IPatient, '_id' | '_rev'>;
+type INewAppointment = Omit<IAppointment, '_id' | '_rev'>;
+type INewScan = Omit<IScan, '_id' | '_rev'>;
+
+export type INewResource = INewPatient | INewAppointment | INewScan;
 
 const initData = {
   patients: [],
@@ -61,7 +70,7 @@ const data = createReducer<IData, IAction>(initData)
     ...state,
     [action.payload.model]: [
       ...(state[action.payload.model] as IResource[]).filter(
-        ({ id }) => id !== action.payload.resource.id,
+        ({ _id }) => _id !== action.payload.resource._id,
       ),
       action.payload.resource,
     ],
@@ -69,16 +78,22 @@ const data = createReducer<IData, IAction>(initData)
   .handleAction(removeSuccess, (state, action) => ({
     ...state,
     [action.payload.model]: (state[action.payload.model] as IResource[]).filter(
-      ({ id }) => id !== action.payload.id,
+      ({ _id }) => _id !== action.payload.id,
     ),
   }));
 
 export default data;
 
 export const getPatients = (state: IData) => state.patients;
+export const getPatientById = (state: IData, id: string) =>
+  state.patients.find(({ _id }) => _id === id);
 export const getPatientsCount = (state: IData) => getPatients(state).length;
 export const getAppointments = (state: IData) => state.appointments;
+export const getAppointmentById = (state: IData, id: string) =>
+  state.appointments.find(({ _id }) => _id === id);
 export const getAppointmentsCount = (state: IData) =>
   getAppointments(state).length;
 export const getScans = (state: IData) => state.scans;
 export const getScansCount = (state: IData) => getScans(state).length;
+export const getScanById = (state: IData, id: string) =>
+  state.scans.find(({ _id }) => _id === id);

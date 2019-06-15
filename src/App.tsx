@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react';
 import Switch from './components/Switch';
+import Navigation from './components/Navigation';
 
 const style = {
   display: 'flex' /* establish flex container */,
@@ -10,9 +11,12 @@ const style = {
 } as CSSProperties;
 
 const App: React.FunctionComponent = () => (
-  <div style={style}>
-    <Switch />
-  </div>
+  <>
+    <Navigation />
+    <div style={style}>
+      <Switch />
+    </div>
+  </>
 );
 
 export default App;

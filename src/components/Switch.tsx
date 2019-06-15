@@ -1,22 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Main from './Main/Main';
 import Patient from './Patient/Patient';
 import Appointment from './Appointment/Appointment';
 import Treatment from './Treatment/Treatment';
-import AddPatient from './Patient/AddPatient';
+import EditPatient from './Patient/EditPatient';
 import Scanner from './Scanner/Scanner';
-import { getScreen, IState } from '../redux/reducers';
-import { IScreen } from '../redux/reducers/screen';
+import { getScreen } from '../redux/reducers';
 
-const Switch: React.FunctionComponent<{ screen: IScreen }> = ({ screen }) => {
+const Switch: React.FunctionComponent = () => {
+  const screen = useSelector(getScreen);
   switch (screen) {
     case 'MAIN':
       return <Main />;
     case 'PATIENT':
       return <Patient />;
     case 'ADD_PATIENT':
-      return <AddPatient />;
+      return <EditPatient />;
+    case 'EDIT_PATIENT':
+      return <EditPatient />;
     case 'APPOINTMENT':
       return <Appointment />;
     case 'TREATMENT':
@@ -28,8 +30,4 @@ const Switch: React.FunctionComponent<{ screen: IScreen }> = ({ screen }) => {
   }
 };
 
-const mapStateToProps = (state: IState) => ({
-  screen: getScreen(state),
-});
-
-export default connect(mapStateToProps)(Switch);
+export default Switch;
