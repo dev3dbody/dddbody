@@ -1,8 +1,8 @@
 Rozbudowany szkielet React/Redux/TypeScript pod 3dbody
 
-typowane akcje, reducery
-przełączanie widoków w Reduxie
-custom Redux middleware dla CRUD w PouchDb
+-typowane akcje, reducery
+-przełączanie widoków w Reduxie
+-custom Redux middleware dla CRUD w PouchDb
 
 
 
